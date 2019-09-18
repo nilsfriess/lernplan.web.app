@@ -1,0 +1,18 @@
+/* Colors */
+$primary: #2196f3;
+$secondary: #ffc107;
+$darkBg: rgba(0, 0, 0, 0.87);
+$darkText: rgba(0, 0, 0, 0.87);
+
+/* Media Queries */
+@mixin darkTheme {
+  body.useDarkTheme & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+/* Other */

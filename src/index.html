@@ -17,10 +17,15 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="useDarkTheme2">
     <lp-root></lp-root>
     <noscript
       >Please enable JavaScript to continue using this application.</noscript
     >
+    <script>
+      if (localStorage.getItem('useDarkTheme') == 'enabled') {
+        document.body.classList.add('useDarkTheme');
+      }
+    </script>
   </body>
 </html>
