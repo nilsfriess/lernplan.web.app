@@ -7,6 +7,9 @@
       "hosting": {
         "lernplan": [
           "lernplan"
+        ],
+        "lernplan-test": [
+          "lernplan-test"
         ]
       }
     }
