@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "lernplanapp-test"
+  },
+  "targets": {
+    "lernplanapp-test": {
+      "hosting": {
+        "lernplan": [
+          "lernplan"
+        ]
+      }
+    }
   }
 }
