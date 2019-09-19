@@ -83,3 +83,15 @@ body.useDarkTheme {
 .flex-grow {
   flex: 1;
 }
+
+.pageContent {
+  position: absolute;
+  top: 0;
+  padding: 2rem;
+  width: calc(100% - 4rem);
+
+  h1 {
+    margin: 0 0 2rem;
+    font-size: 2.4rem;
+  }
+}

@@ -28,6 +28,8 @@ import { AuthService } from './core/services/auth.service';
 import { DatabaseService } from './core/services/database.service';
 import { AuthGuard } from './core/guards/auth.guard';
 import { MaterialModule } from './core/modules/material.module';
+import { BlogComponent } from './comp/page/blog/blog.component';
+import { HttpsPipe } from './core/pipes/https.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { MaterialModule } from './core/modules/material.module';
     NewTaskComponent,
     NavComponent,
     BottomNavComponent,
+    BlogComponent,
+    HttpsPipe,
   ],
   imports: [
     BrowserModule,

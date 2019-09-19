@@ -4,13 +4,25 @@ $secondary: #ffc107;
 $darkBg: rgba(0, 0, 0, 0.87);
 $darkText: rgba(0, 0, 0, 0.87);
 
-/* Media Queries */
+/* Mixins */
 @mixin darkTheme {
   body.useDarkTheme & {
     @content;
   }
 
   @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 520px) {
     @content;
   }
 }

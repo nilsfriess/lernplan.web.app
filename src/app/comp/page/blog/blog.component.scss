@@ -1,0 +1,41 @@
+@import 'vars';
+
+:host .pageContent .blogSection {
+  &:not(:last-child) {
+    margin: 0 0 3rem;
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-weight: 500;
+  }
+
+  .sectionInnerWrapper {
+    display: flex;
+    overflow-x: scroll;
+
+    .blogArticle {
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      padding: 14px;
+      min-width: calc(50% - 2rem);
+
+      &:not(:last-child) {
+        margin: 0 1rem 0 0;
+      }
+
+      h3 {
+        margin: 0 0 8px;
+        font-weight: 500;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      @include darkTheme {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+  }
+}

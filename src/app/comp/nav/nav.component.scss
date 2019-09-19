@@ -1,0 +1,15 @@
+@import 'vars';
+
+.bottomNavWrapper {
+  @include desktop {
+    display: none;
+  }
+}
+
+.navWrapper {
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
+}

@@ -1,1 +1,101 @@
-<p>new-task works!</p>
+<div class="pageContent">
+  <h1>
+    <button routerLink="/tasks" mat-ripple>
+      <i class="material-icons">keyboard_arrow_left</i>
+    </button>
+    Neue Aufgabe
+  </h1>
+  <mat-horizontal-stepper #stepper linear>
+    <mat-step label="Typ">
+      <form>
+        <h2>Aufgaben Typ wählen</h2>
+        <mat-radio-group
+          color="primary"
+          class="radioGroup"
+          name="radioGroup"
+          [(ngModel)]="taskType"
+        >
+          <mat-radio-button class="radioBtn" value="book"
+            >Buch</mat-radio-button
+          >
+          <mat-radio-button class="radioBtn" value="homework"
+            >Hausarbeit</mat-radio-button
+          >
+          <mat-radio-button class="radioBtn" value="other"
+            >Sonstiges</mat-radio-button
+          >
+        </mat-radio-group>
+      </form>
+    </mat-step>
+    <mat-step *ngIf="taskType == 'book'" label="Suche">
+      <form class="searchBookForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Buch suchen</mat-label>
+          <input
+            (keyup)="searchforBook($event)"
+            matInput
+            type="text"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <div class="searchResultsWrapper">
+          <div class="searchResult" *ngFor="let option of autocompleteOptions">
+            <img
+              *ngIf="option.volumeInfo.imageLinks"
+              src="{{ option.volumeInfo.imageLinks.smallThumbnail | https }}"
+              alt="cover"
+            />
+            <div class="bookInfo">
+              <span class="title">{{ option.volumeInfo.title }}</span>
+              <span class="pageAndAuthor">
+                <span *ngIf="option.volumeInfo.pageCount"
+                  >{{ option.volumeInfo.pageCount }} Seiten</span
+                >
+                <span
+                  *ngIf="
+                    option.volumeInfo.pageCount &&
+                    option.volumeInfo.authors != null
+                  "
+                  >&nbsp;-&nbsp;</span
+                >
+                <span *ngIf="option.volumeInfo.authors != null">{{
+                  option.volumeInfo.authors[0]
+                }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step label="Details">
+      <form></form>
+    </mat-step>
+  </mat-horizontal-stepper>
+  <span class="flex-grow"></span>
+  <div class="stepperButtonWrapper">
+    <button
+      *ngIf="stepper.selectedIndex == 1 || stepper.selectedIndex == 2"
+      (click)="stepper.previous()"
+      mat-stroked-button
+      class="prev"
+    >
+      Zurück
+    </button>
+    <button
+      *ngIf="stepper.selectedIndex == 0"
+      (click)="stepper.next()"
+      mat-stroked-button
+      class="next"
+    >
+      Weiter
+    </button>
+    <button
+      *ngIf="stepper.selectedIndex == 1 && taskType == 'book'"
+      (click)="stepper.next()"
+      mat-stroked-button
+      class="next"
+    >
+      Weiter ohne Auswahl
+    </button>
+  </div>
+</div>

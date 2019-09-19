@@ -5,12 +5,14 @@ import { LoginComponent } from './comp/auth/login/login.component';
 import { RegisterComponent } from './comp/auth/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AccountComponent } from './comp/page/account/account.component';
+import { BlogComponent } from './comp/page/blog/blog.component';
+import { NewTaskComponent } from './comp/page/tasks/new-task/new-task.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: TasksComponent,
+    component: BlogComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -20,6 +22,16 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'tasks',
+    component: TasksComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tasks/new-task',
+    component: NewTaskComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'account',

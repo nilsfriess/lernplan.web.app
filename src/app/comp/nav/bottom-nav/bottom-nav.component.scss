@@ -1,0 +1,30 @@
+@import 'vars';
+
+:host {
+  display: flex;
+  box-shadow: 0 -10px 20px -10px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+
+  @include darkTheme {
+    border-top: 1px solid rgba(255, 255, 255, 0.26);
+    // box-shadow: 0 -10px 20px -10px rgba(255, 255, 255, 0.1),
+    //  0 6px 6px rgba(255, 255, 255, 0.15);
+    box-shadow: none;
+  }
+
+  button {
+    flex: 1;
+    height: 56px;
+    border: none;
+    background: none;
+    outline: none;
+
+    i {
+      color: rgba(0, 0, 0, 0.8);
+
+      @include darkTheme {
+        color: white;
+      }
+    }
+  }
+}

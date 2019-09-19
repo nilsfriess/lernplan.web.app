@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return new Promise((resolve, reject) => {
       this.authService.afAuth.authState.subscribe(user => {
-        console.log(user);
         if (!user) {
           this.router.navigate(['/login']);
           resolve(false);
