@@ -5,72 +5,148 @@
     </button>
     Neue Aufgabe
   </h1>
-  <mat-horizontal-stepper #stepper linear>
-    <mat-step label="Typ">
-      <form>
-        <h2>Aufgaben Typ wählen</h2>
-        <mat-radio-group
-          color="primary"
-          class="radioGroup"
-          name="radioGroup"
-          [(ngModel)]="taskType"
-        >
-          <mat-radio-button class="radioBtn" value="book"
-            >Buch</mat-radio-button
+  <div class="stepperWrapper">
+    <mat-horizontal-stepper #stepper linear>
+      <mat-step label="Typ">
+        <form>
+          <h2>Aufgaben Typ wählen</h2>
+          <mat-radio-group
+            color="primary"
+            class="radioGroup"
+            name="radioGroup"
+            (change)="onTaskTypeChange()"
+            [(ngModel)]="taskType"
           >
-          <mat-radio-button class="radioBtn" value="homework"
-            >Hausarbeit</mat-radio-button
-          >
-          <mat-radio-button class="radioBtn" value="other"
-            >Sonstiges</mat-radio-button
-          >
-        </mat-radio-group>
-      </form>
-    </mat-step>
-    <mat-step *ngIf="taskType == 'book'" label="Suche">
-      <form class="searchBookForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Buch suchen</mat-label>
-          <input
-            (keyup)="searchforBook($event)"
-            matInput
-            type="text"
-            autocomplete="off"
-          />
-        </mat-form-field>
-        <div class="searchResultsWrapper">
-          <div class="searchResult" *ngFor="let option of autocompleteOptions">
-            <img
-              *ngIf="option.volumeInfo.imageLinks"
-              src="{{ option.volumeInfo.imageLinks.smallThumbnail | https }}"
-              alt="cover"
+            <mat-radio-button class="radioBtn" value="Buch"
+              >Buch</mat-radio-button
+            >
+            <mat-radio-button class="radioBtn" value="Hausarbeit"
+              >Hausarbeit</mat-radio-button
+            >
+            <mat-radio-button class="radioBtn" value="Sonstiges"
+              >Sonstiges</mat-radio-button
+            >
+          </mat-radio-group>
+        </form>
+      </mat-step>
+      <mat-step *ngIf="taskType == 'Buch'" label="Suche">
+        <form class="searchBookForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Buch suchen</mat-label>
+            <input
+              (keyup)="searchforBook($event)"
+              matInput
+              type="text"
+              autocomplete="off"
             />
-            <div class="bookInfo">
-              <span class="title">{{ option.volumeInfo.title }}</span>
-              <span class="pageAndAuthor">
-                <span *ngIf="option.volumeInfo.pageCount"
-                  >{{ option.volumeInfo.pageCount }} Seiten</span
-                >
-                <span
-                  *ngIf="
-                    option.volumeInfo.pageCount &&
-                    option.volumeInfo.authors != null
-                  "
-                  >&nbsp;-&nbsp;</span
-                >
-                <span *ngIf="option.volumeInfo.authors != null">{{
-                  option.volumeInfo.authors[0]
-                }}</span>
-              </span>
+            <mat-spinner *ngIf="resultsLoading" matSuffix diameter="26"></mat-spinner>
+          </mat-form-field>
+          <div class="searchResultsWrapper">
+            <div *ngIf="bookSearchResults.length == 0 && previousSearch != '' && resultsLoading == false">
+              Keine Ergebnisse zu: {{previousSearch}}
+            </div>
+            <div (click)="selectBook(option)" class="searchResult" *ngFor="let option of bookSearchResults">
+              <img
+                *ngIf="option.volumeInfo.imageLinks"
+                src="{{ option.volumeInfo.imageLinks.smallThumbnail | https }}"
+                alt="cover"
+              />
+              <div class="bookInfo">
+                <span class="title">{{ option.volumeInfo.title }}</span>
+                <span class="pageAndAuthor">
+                  <span *ngIf="option.volumeInfo.pageCount"
+                    >{{ option.volumeInfo.pageCount }} Seiten</span
+                  >
+                  <span
+                    *ngIf="
+                      option.volumeInfo.pageCount &&
+                      option.volumeInfo.authors != null
+                    "
+                    >&nbsp;-&nbsp;</span
+                  >
+                  <span *ngIf="option.volumeInfo.authors != null">{{
+                    option.volumeInfo.authors[0]
+                  }}</span>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step label="Details">
-      <form></form>
-    </mat-step>
-  </mat-horizontal-stepper>
+        </form>
+      </mat-step>
+      <mat-step label="Details">
+        <form #taskDetailsForm (submit)="createTask()" class="taskDetailsForm" [formGroup]="taskDetailsFormGroup">
+          <mat-form-field class="titleInput" appearance="outline">
+            <mat-label>Titel</mat-label>
+            <input
+              matInput
+              type="text"
+              autocomplete="off"
+              name="titleInput"
+              required
+              formControlName="titleCtrl"
+              #titleInput
+            />
+          </mat-form-field>
+          <mat-form-field class="pageInput" appearance="outline">
+            <mat-label>Seiten</mat-label>
+            <input
+              matInput
+              type="number"
+              autocomplete="off"
+              name="pageCountInput"
+              required
+              formControlName="pageCountCtrl"
+              #pageCountInput
+            />
+          </mat-form-field>
+          <mat-form-field class="authorInput" appearance="outline">
+            <mat-label>Autor</mat-label>
+            <input
+              matInput
+              type="text"
+              autocomplete="off"
+              name="authorInput"
+              #authorInput
+            />
+          </mat-form-field>
+          <mat-form-field class="noteInput" appearance="outline">
+            <mat-label>Anmerkungen</mat-label>
+            <textarea
+              matInput
+              type="text"
+              autocomplete="off"
+              name="noteInput"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field (click)="categoryInput.focus()" class="categoryInput" appearance="outline">
+            <mat-label>Kategorie</mat-label>
+            <mat-chip-list class="chipList" #chipList>
+                <mat-chip
+                  removable
+                  *ngFor="let category of taskDetails.categories"
+                  (removed)="remove(category)">
+                  {{category.name}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+            <input
+              #categoryInput
+              [matChipInputFor]="chipList"  
+              matChipInputAddOnBlur
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-form-field>
+          <mat-form-field (click)="picker.open()" class="deadlineInput" appearance="outline">
+            <mat-label>Deadline auswählen</mat-label>
+            <input matInput [matDatepicker]="picker" [min]="currentDate" required 
+            formControlName="deadlineCtrl">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
   <span class="flex-grow"></span>
   <div class="stepperButtonWrapper">
     <button
@@ -90,12 +166,20 @@
       Weiter
     </button>
     <button
-      *ngIf="stepper.selectedIndex == 1 && taskType == 'book'"
+      *ngIf="stepper.selectedIndex == 1 && taskType == 'Buch'"
       (click)="stepper.next()"
       mat-stroked-button
       class="next"
     >
       Weiter ohne Auswahl
+    </button>
+    <button
+      *ngIf="(stepper.selectedIndex == 2 && taskType == 'Buch') || (stepper.selectedIndex == 1 && taskType != 'Buch')"
+      (click)="taskDetailsForm.submit()"
+      mat-stroked-button
+      class="next"
+    >
+      Aufgabe erstellen
     </button>
   </div>
 </div>

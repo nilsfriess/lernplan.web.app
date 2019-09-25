@@ -1,4 +1,4 @@
-<div class="bottomNavWrapper">
+<div *ngIf="authService.afAuth.auth.currentUser" class="bottomNavWrapper">
   <lp-bottom-nav></lp-bottom-nav>
 </div>
 <div class="navWrapper"></div>

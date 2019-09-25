@@ -20,16 +20,15 @@ import { BottomNavComponent } from './comp/nav/bottom-nav/bottom-nav.component';
 /* AngularFire */
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import {
-  AngularFirestoreModule,
-  FirestoreSettingsToken,
-} from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 import { AuthService } from './core/services/auth.service';
 import { DatabaseService } from './core/services/database.service';
 import { AuthGuard } from './core/guards/auth.guard';
 import { MaterialModule } from './core/modules/material.module';
 import { BlogComponent } from './comp/page/blog/blog.component';
 import { HttpsPipe } from './core/pipes/https.pipe';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -59,7 +58,12 @@ import { HttpsPipe } from './core/pipes/https.pipe';
     AngularFireAuthModule,
     AngularFirestoreModule,
   ],
-  providers: [AuthService, DatabaseService, AuthGuard],
+  providers: [
+    AuthService,
+    DatabaseService,
+    AuthGuard,
+    { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
