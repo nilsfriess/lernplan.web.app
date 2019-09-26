@@ -3,4 +3,15 @@
   <button class="newTaskBtn" routerLink="/tasks/new-task" mat-stroked-button>
     <i class="material-icons">add</i>Aufgabe hinzufügen
   </button>
+  <div>
+    <div *ngIf="tasks === undefined">
+      loading
+    </div>
+    <div *ngIf="tasks && tasks.length == 0">
+      kein eintrag
+    </div>
+    <div *ngFor="let task of tasks">
+      {{ task.title }}
+    </div>
+  </div>
 </div>

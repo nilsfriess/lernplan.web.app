@@ -3,6 +3,8 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DatabaseService } from 'src/app/core/services/database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lp-new-task',
@@ -45,8 +47,14 @@ export class NewTaskComponent implements OnInit {
   @ViewChild('authorInput', { static: true }) authorInput: ElementRef<
     HTMLInputElement
   >;
+  @ViewChild('noteInput', { static: true }) noteInput: ElementRef<
+    HTMLInputElement
+  >;
 
-  constructor() {}
+  constructor(
+    private databaseService: DatabaseService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -111,5 +119,22 @@ export class NewTaskComponent implements OnInit {
     this.taskDetails.categories = [{ name: this.taskType }];
   }
 
-  createTask() {}
+  createTask(event: Event) {
+    event.preventDefault();
+    if (this.taskDetailsFormGroup.valid) {
+      this.taskDetails.title = this.titleInput.nativeElement.value;
+      this.taskDetails.author = this.authorInput.nativeElement.value;
+      this.taskDetails.pageCount = this.pageCountInput.nativeElement.value;
+      this.taskDetails.note = this.noteInput.nativeElement.value;
+      this.databaseService
+        .createNewTask(this.taskDetails)
+        .then(data => {
+          console.log(data);
+          this.router.navigate(['/tasks']);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  }
 }

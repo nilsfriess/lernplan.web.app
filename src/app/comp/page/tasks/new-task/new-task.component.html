@@ -39,13 +39,27 @@
               type="text"
               autocomplete="off"
             />
-            <mat-spinner *ngIf="resultsLoading" matSuffix diameter="26"></mat-spinner>
+            <mat-spinner
+              *ngIf="resultsLoading"
+              matSuffix
+              diameter="26"
+            ></mat-spinner>
           </mat-form-field>
           <div class="searchResultsWrapper">
-            <div *ngIf="bookSearchResults.length == 0 && previousSearch != '' && resultsLoading == false">
-              Keine Ergebnisse zu: {{previousSearch}}
+            <div
+              *ngIf="
+                bookSearchResults.length == 0 &&
+                previousSearch != '' &&
+                resultsLoading == false
+              "
+            >
+              Keine Ergebnisse zu: {{ previousSearch }}
             </div>
-            <div (click)="selectBook(option)" class="searchResult" *ngFor="let option of bookSearchResults">
+            <div
+              (click)="selectBook(option)"
+              class="searchResult"
+              *ngFor="let option of bookSearchResults"
+            >
               <img
                 *ngIf="option.volumeInfo.imageLinks"
                 src="{{ option.volumeInfo.imageLinks.smallThumbnail | https }}"
@@ -74,7 +88,12 @@
         </form>
       </mat-step>
       <mat-step label="Details">
-        <form #taskDetailsForm (submit)="createTask()" class="taskDetailsForm" [formGroup]="taskDetailsFormGroup">
+        <form
+          #taskDetailsForm
+          (submit)="createTask($event)"
+          class="taskDetailsForm"
+          [formGroup]="taskDetailsFormGroup"
+        >
           <mat-form-field class="titleInput" appearance="outline">
             <mat-label>Titel</mat-label>
             <input
@@ -116,44 +135,74 @@
               type="text"
               autocomplete="off"
               name="noteInput"
+              #noteInput
             ></textarea>
           </mat-form-field>
-          <mat-form-field (click)="categoryInput.focus()" class="categoryInput" appearance="outline">
+          <mat-form-field
+            (click)="categoryInput.focus()"
+            class="categoryInput"
+            appearance="outline"
+          >
             <mat-label>Kategorie</mat-label>
             <mat-chip-list class="chipList" #chipList>
-                <mat-chip
-                  removable
-                  *ngFor="let category of taskDetails.categories"
-                  (removed)="remove(category)">
-                  {{category.name}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
+              <mat-chip
+                removable
+                *ngFor="let category of taskDetails.categories"
+                (removed)="remove(category)"
+              >
+                {{ category.name }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
             </mat-chip-list>
             <input
               #categoryInput
-              [matChipInputFor]="chipList"  
+              [matChipInputFor]="chipList"
               matChipInputAddOnBlur
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)">
+              (matChipInputTokenEnd)="add($event)"
+            />
           </mat-form-field>
-          <mat-form-field (click)="picker.open()" class="deadlineInput" appearance="outline">
+          <mat-form-field class="deadlineInput" appearance="outline">
             <mat-label>Deadline auswählen</mat-label>
-            <input matInput [matDatepicker]="picker" [min]="currentDate" required 
-            formControlName="deadlineCtrl">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [min]="currentDate"
+              required
+              formControlName="deadlineCtrl"
+              (click)="$event.preventDefault(); picker.open()"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          <div class="detailsFormBtnWrapper">
+            <button
+              type="button"
+              (click)="stepper.previous()"
+              mat-stroked-button
+            >
+              Zurück
+            </button>
+            <span class="flex-grow"></span>
+            <button type="submit" mat-stroked-button>
+              Aufgabe erstellen
+            </button>
+          </div>
         </form>
       </mat-step>
     </mat-horizontal-stepper>
   </div>
   <span class="flex-grow"></span>
-  <div class="stepperButtonWrapper">
+  <div *ngIf="stepper.selectedIndex != 2" class="stepperButtonWrapper">
     <button
-      *ngIf="stepper.selectedIndex == 1 || stepper.selectedIndex == 2"
+      *ngIf="stepper.selectedIndex == 1"
       (click)="stepper.previous()"
       mat-stroked-button
       class="prev"
+      type="button"
     >
       Zurück
     </button>
@@ -162,6 +211,7 @@
       (click)="stepper.next()"
       mat-stroked-button
       class="next"
+      type="button"
     >
       Weiter
     </button>
@@ -170,16 +220,9 @@
       (click)="stepper.next()"
       mat-stroked-button
       class="next"
+      type="button"
     >
       Weiter ohne Auswahl
-    </button>
-    <button
-      *ngIf="(stepper.selectedIndex == 2 && taskType == 'Buch') || (stepper.selectedIndex == 1 && taskType != 'Buch')"
-      (click)="taskDetailsForm.submit()"
-      mat-stroked-button
-      class="next"
-    >
-      Aufgabe erstellen
     </button>
   </div>
 </div>
