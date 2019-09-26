@@ -1,0 +1,22 @@
+@import 'vars';
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .light {
+    @include darkTheme {
+      display: none;
+    }
+  }
+
+  .dark {
+    display: none;
+
+    @include darkTheme {
+      display: block;
+    }
+  }
+}

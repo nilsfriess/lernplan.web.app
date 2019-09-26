@@ -5,6 +5,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Router } from '@angular/router';
+import { LoadingBarService } from 'src/app/core/services/loading-bar.service';
 
 @Component({
   selector: 'lp-new-task',
@@ -53,7 +54,8 @@ export class NewTaskComponent implements OnInit {
 
   constructor(
     private databaseService: DatabaseService,
-    private router: Router
+    private router: Router,
+    private loadingBarService: LoadingBarService
   ) {}
 
   ngOnInit() {}
@@ -121,6 +123,7 @@ export class NewTaskComponent implements OnInit {
 
   createTask(event: Event) {
     event.preventDefault();
+    this.loadingBarService.setLoadingStatus(true);
     if (this.taskDetailsFormGroup.valid) {
       this.taskDetails.title = this.titleInput.nativeElement.value;
       this.taskDetails.author = this.authorInput.nativeElement.value;
@@ -130,9 +133,11 @@ export class NewTaskComponent implements OnInit {
         .createNewTask(this.taskDetails)
         .then(data => {
           console.log(data);
+          this.loadingBarService.setLoadingStatus(false);
           this.router.navigate(['/tasks']);
         })
         .catch(e => {
+          this.loadingBarService.setLoadingStatus(false);
           console.log(e);
         });
     }

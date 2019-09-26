@@ -29,6 +29,8 @@ import { MaterialModule } from './core/modules/material.module';
 import { BlogComponent } from './comp/page/blog/blog.component';
 import { HttpsPipe } from './core/pipes/https.pipe';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { LoadingBarComponent } from './core/comp/loading-bar/loading-bar.component';
+import { LoadingBarService } from './core/services/loading-bar.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     BottomNavComponent,
     BlogComponent,
     HttpsPipe,
+    LoadingBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   providers: [
     AuthService,
     DatabaseService,
+    LoadingBarService,
     AuthGuard,
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
   ],

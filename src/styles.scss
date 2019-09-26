@@ -40,7 +40,7 @@ $my-white: (
 );
 
 $darkTheme-primary: mat-palette($my-white);
-$darkTheme-accent: mat-palette($mat-amber);
+$darkTheme-accent: mat-palette($mat-blue);
 $darkTheme-warn: mat-palette($mat-red);
 
 $lernplan-theme: mat-light-theme(
@@ -64,7 +64,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 body.useDarkTheme {
