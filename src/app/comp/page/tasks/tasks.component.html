@@ -1,17 +1,25 @@
 <div class="pageContent">
   <h1>Aufgaben</h1>
-  <button class="newTaskBtn" routerLink="/tasks/new-task" mat-stroked-button>
-    <i class="material-icons">add</i>Aufgabe hinzufügen
-  </button>
-  <div>
+  <div class="actionBtnWrapper">
+    <button class="newTaskBtn" routerLink="/tasks/new-task" mat-stroked-button>
+      <i class="material-icons">add</i>Aufgabe hinzufügen
+    </button>
+    <span class="flex-grow"></span>
+    <button (click)="showFilter = !showFilter" mat-icon-button>
+      <i class="material-icons">filter_list</i>
+    </button>
+  </div>
+  <div *ngIf="showFilter" class="filterWrapper">Funktion wird folgen</div>
+  <div class="tasksWrapper">
     <div *ngIf="tasks === undefined">
       loading
     </div>
-    <div *ngIf="tasks && tasks.length == 0">
+    <div *ngIf="(tasks && tasks.length == 0) || tasks === null">
       kein eintrag
     </div>
-    <div *ngFor="let task of tasks">
-      {{ task.title }}
+    <div (click)="openTask(task)" class="task" *ngFor="let task of tasks">
+      <h2>{{ task.title }}</h2>
+      <span>von {{ task.author }}</span>
     </div>
   </div>
 </div>

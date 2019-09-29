@@ -31,6 +31,7 @@ import { HttpsPipe } from './core/pipes/https.pipe';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoadingBarComponent } from './core/comp/loading-bar/loading-bar.component';
 import { LoadingBarService } from './core/services/loading-bar.service';
+import { TaskDetailsComponent } from './comp/page/tasks/task-details/task-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { LoadingBarService } from './core/services/loading-bar.service';
     BlogComponent,
     HttpsPipe,
     LoadingBarComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     BrowserModule,

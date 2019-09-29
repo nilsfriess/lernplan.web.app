@@ -1,0 +1,15 @@
+<div class="pageContent">
+  <div *ngIf="task">
+    <div class="taskHead">
+      <span class="btnWrapper">
+        <button routerLink="/tasks" mat-ripple>
+          <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+      </span>
+      <div class="titleWrapper">
+        <span class="title">{{ task.title }}</span>
+        <span class="author">von {{ task.author }}</span>
+      </div>
+    </div>
+  </div>
+</div>

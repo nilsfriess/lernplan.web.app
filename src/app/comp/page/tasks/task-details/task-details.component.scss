@@ -1,0 +1,49 @@
+@import 'vars';
+
+:host .pageContent {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100% - 4rem);
+
+  .taskHead {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .btnWrapper {
+      height: 40px;
+      width: 40px;
+
+      button {
+        background: none;
+        border: none;
+        outline: none;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        margin: 0 8px 0 -12px;
+
+        i {
+          @include darkTheme {
+            color: white;
+          }
+        }
+      }
+    }
+
+    .titleWrapper {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-size: 1.6rem;
+        font-weight: 500;
+        display: inline;
+        line-height: 30px;
+        max-height: 90px;
+        overflow: hidden;
+        hyphens: auto;
+      }
+    }
+  }
+}

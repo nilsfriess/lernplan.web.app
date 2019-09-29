@@ -1,10 +1,44 @@
+@import 'vars';
+
 :host .pageContent {
-  .newTaskBtn {
-    i {
-      position: relative;
-      top: -1px;
-      font-size: 20px;
-      margin: 0 6px 0 -4px;
+  .actionBtnWrapper {
+    display: flex;
+    margin: 0 0 2rem;
+
+    .newTaskBtn {
+      i {
+        position: relative;
+        top: -1px;
+        font-size: 20px;
+        margin: 0 6px 0 -4px;
+      }
+    }
+  }
+
+  .tasksWrapper {
+    .task {
+      padding: 16px;
+      margin: 0 0 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      border-radius: 8px;
+
+      @include darkTheme {
+        background: rgba(white, 0.04);
+        color: white;
+      }
+
+      h2 {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+        max-height: 40px;
+        overflow: hidden;
+        margin: 0 0 2px;
+      }
+
+      span {
+        font-size: 1rem;
+      }
     }
   }
 }

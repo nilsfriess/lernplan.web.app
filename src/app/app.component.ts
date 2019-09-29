@@ -6,6 +6,8 @@ import {
   animate,
   query,
 } from '@angular/animations';
+import { DatabaseService } from './core/services/database.service';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'lp-root',
@@ -32,7 +34,12 @@ import {
 export class AppComponent {
   title = 'lernplan';
 
-  constructor() {
+  constructor(
+    private databaseService: DatabaseService,
+    private authService: AuthService
+  ) {
     document.body.style.height = document.body.clientHeight + 'px';
+    this.databaseService;
+    this.authService;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/core/services/database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lp-tasks',
@@ -8,11 +9,20 @@ import { DatabaseService } from 'src/app/core/services/database.service';
 })
 export class TasksComponent implements OnInit {
   tasks: Array<any> = undefined;
-  constructor(private databaseService: DatabaseService) {}
+  showFilter: Boolean = false;
+
+  constructor(
+    private databaseService: DatabaseService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.databaseService.getAllTasks().then(data => {
+    this.databaseService.getAllTasks().subscribe(data => {
       this.tasks = data;
     });
+  }
+
+  openTask(task) {
+    this.router.navigate(['/tasks/' + task.taskId]);
   }
 }

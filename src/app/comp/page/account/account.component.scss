@@ -1,81 +1,92 @@
 @import 'vars';
 
-:host .pageContent {
-  .accountHeader {
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    height: 70px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    margin: 0 0 2rem;
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-    @include darkTheme {
-      background-color: rgba(white, 0.06);
-    }
-
-    .iconWrapper {
+  .pageContent {
+    .accountHeader {
       display: flex;
       align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      margin: 0 16px;
-      background-color: rgba(0, 0, 0, 0.08);
-      border-radius: 50%;
+      border-radius: 8px;
+      height: 70px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      margin: 0 0 2rem;
 
       @include darkTheme {
-        background-color: rgba(white, 0.08);
+        background-color: rgba(white, 0.06);
+      }
+
+      .iconWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        margin: 0 16px;
+        background-color: rgba(0, 0, 0, 0.08);
+        border-radius: 50%;
+
+        @include darkTheme {
+          background-color: rgba(white, 0.08);
+        }
+
+        i {
+          color: rgba(0, 0, 0, 0.87);
+
+          @include darkTheme {
+            color: white;
+          }
+        }
+      }
+
+      h1 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0 8px 0 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      border: none;
+      outline: none;
+      text-align: left;
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.08);
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 400;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 4px;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      @include darkTheme {
+        background: rgba(white, 0.04);
+        color: white;
       }
 
       i {
+        margin: 0 12px 0 -12px;
         color: rgba(0, 0, 0, 0.87);
+        font-size: 20px;
 
         @include darkTheme {
           color: white;
         }
       }
     }
-
-    h1 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin: 0 8px 0 0;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
   }
 
-  button {
-    display: flex;
-    align-items: center;
-    border: none;
-    outline: none;
-    text-align: left;
-    padding: 16px 24px;
-    background: rgba(0, 0, 0, 0.08);
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 400;
-    font-family: 'Roboto', sans-serif;
-    border-radius: 4px;
-
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-
-    @include darkTheme {
-      background: rgba(white, 0.04);
-      color: white;
-    }
-
-    i {
-      margin: 0 12px 0 -12px;
-      color: rgba(0, 0, 0, 0.87);
-      font-size: 20px;
-
-      @include darkTheme {
-        color: white;
-      }
-    }
+  p {
+    text-align: center;
+    font-size: 0.8rem;
   }
 }

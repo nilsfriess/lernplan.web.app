@@ -170,7 +170,8 @@
               [min]="currentDate"
               required
               formControlName="deadlineCtrl"
-              (click)="$event.preventDefault(); picker.open()"
+              (click)="picker.open()"
+              #deadlineInput
             />
             <mat-datepicker-toggle
               matSuffix

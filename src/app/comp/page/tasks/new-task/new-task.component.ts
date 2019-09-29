@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Router } from '@angular/router';
 import { LoadingBarService } from 'src/app/core/services/loading-bar.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'lp-new-task',
@@ -31,6 +32,7 @@ export class NewTaskComponent implements OnInit {
     author: '',
     note: '',
     categories: [{ name: this.taskType }],
+    deadline: null,
   };
 
   taskDetailsFormGroup: FormGroup = new FormGroup({
@@ -49,6 +51,9 @@ export class NewTaskComponent implements OnInit {
     HTMLInputElement
   >;
   @ViewChild('noteInput', { static: true }) noteInput: ElementRef<
+    HTMLInputElement
+  >;
+  @ViewChild('deadlineInput', { static: true }) deadlineInput: ElementRef<
     HTMLInputElement
   >;
 
@@ -86,11 +91,14 @@ export class NewTaskComponent implements OnInit {
   selectBook(book) {
     this.stepper.next();
     //this.taskDetails.title = book.volumeInfo.title;
-    this.titleInput.nativeElement.value = book.volumeInfo.title;
+    this.taskDetailsFormGroup.controls['titleCtrl'].setValue(
+      book.volumeInfo.title
+    );
     //this.taskDetails.pageCount = book.volumeInfo.pageCount
-    this.pageCountInput.nativeElement.value = book.volumeInfo.pageCount
-      ? book.volumeInfo.pageCount
-      : null;
+    if (book.volumeInfo.pageCount)
+      this.taskDetailsFormGroup.controls['pageCountCtrl'].setValue(
+        book.volumeInfo.pageCount
+      );
     //this.taskDetails.author =
     this.authorInput.nativeElement.value =
       book.volumeInfo.authors != null ? book.volumeInfo.authors[0] : '';
@@ -123,16 +131,19 @@ export class NewTaskComponent implements OnInit {
 
   createTask(event: Event) {
     event.preventDefault();
-    this.loadingBarService.setLoadingStatus(true);
     if (this.taskDetailsFormGroup.valid) {
+      this.loadingBarService.setLoadingStatus(true);
       this.taskDetails.title = this.titleInput.nativeElement.value;
       this.taskDetails.author = this.authorInput.nativeElement.value;
       this.taskDetails.pageCount = this.pageCountInput.nativeElement.value;
       this.taskDetails.note = this.noteInput.nativeElement.value;
+      this.taskDetails.deadline = moment(
+        this.deadlineInput.nativeElement.value,
+        'D-MM-YYYY'
+      ).toDate();
       this.databaseService
         .createNewTask(this.taskDetails)
         .then(data => {
-          console.log(data);
           this.loadingBarService.setLoadingStatus(false);
           this.router.navigate(['/tasks']);
         })
