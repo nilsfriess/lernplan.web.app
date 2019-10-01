@@ -154,10 +154,37 @@
   </svg>
 </div>
 
-<form (submit)="submitForm(emailInput.value, passwordInput.value)">
+<form
+  (submit)="submitForm(emailInput.value, passwordInput.value)"
+  [formGroup]="loginFormGroup"
+>
   <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
-    <input #emailInput matInput type="email" autocomplete="email" />
+    <input
+      #emailInput
+      matInput
+      type="email"
+      autocomplete="email"
+      formControlName="emailCtrl"
+    />
+    <mat-error
+      *ngIf="loginFormGroup.controls['emailCtrl'].hasError('required')"
+    >
+      Bitte gib deine Email ein
+    </mat-error>
+    <mat-error *ngIf="loginFormGroup.controls['emailCtrl'].hasError('pattern')">
+      Bitte gib eine korrekte Email-Adresse ein
+    </mat-error>
+    <mat-error
+      *ngIf="loginFormGroup.controls['emailCtrl'].hasError('userNotFound')"
+    >
+      Es wurde kein Nutzer mit dieser Email gefunden
+    </mat-error>
+    <mat-error
+      *ngIf="loginFormGroup.controls['emailCtrl'].hasError('unknownError')"
+    >
+      Unerwarteter Fehler
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Passwort</mat-label>
@@ -166,7 +193,18 @@
       matInput
       type="password"
       autocomplete="current-password"
+      formControlName="passwordCtrl"
     />
+    <mat-error
+      *ngIf="loginFormGroup.controls['passwordCtrl'].hasError('required')"
+    >
+      Bitte gib dein Passwort ein
+    </mat-error>
+    <mat-error
+      *ngIf="loginFormGroup.controls['passwordCtrl'].hasError('wrongPassword')"
+    >
+      Dein angegebenes Passwort war falsch
+    </mat-error>
   </mat-form-field>
   <button type="submit" color="primary" mat-stroked-button>Anmelden</button>
 </form>

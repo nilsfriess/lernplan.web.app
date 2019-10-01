@@ -10,6 +10,7 @@ import { LoadingBarService } from 'src/app/core/services/loading-bar.service';
 })
 export class TaskDetailsComponent implements OnInit {
   task;
+  remainingDays: number = 0;
 
   constructor(
     private databaseService: DatabaseService,
@@ -20,7 +21,14 @@ export class TaskDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.databaseService.getAllTasks().subscribe(data => {
         this.task = data.find(elem => {
-          return elem.taskId == params['id'];
+          if (elem.taskId == params['id']) {
+            console.log(elem);
+            let currentDate = new Date();
+            let deadline = new Date(elem.deadline.seconds * 1000);
+            this.remainingDays = deadline.getDate() - currentDate.getDate();
+            return true;
+          }
+          return false;
         });
       });
     });

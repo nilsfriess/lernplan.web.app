@@ -1,5 +1,5 @@
 <div class="pageContent">
-  <div *ngIf="task">
+  <div class="innerWrapper" *ngIf="task">
     <div class="taskHead">
       <span class="btnWrapper">
         <button routerLink="/tasks" mat-ripple>
@@ -11,5 +11,15 @@
         <span class="author">von {{ task.author }}</span>
       </div>
     </div>
+    <div class="taskStatus">
+      {{ task.currentStatus }} von {{ task.pageCount }} Seiten
+      <div class="taskStatusIndicator">
+        <div class="innerIndicator"></div>
+      </div>
+    </div>
+    <span class="deadline">
+      Deadline in {{ remainingDays }}
+      {{ remainingDays > 1 ? 'Tagen' : 'einem Tag' }}
+    </span>
   </div>
 </div>

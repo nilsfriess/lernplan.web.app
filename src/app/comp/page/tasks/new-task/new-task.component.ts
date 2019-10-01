@@ -33,6 +33,7 @@ export class NewTaskComponent implements OnInit {
     note: '',
     categories: [{ name: this.taskType }],
     deadline: null,
+    currentStatus: 0,
   };
 
   taskDetailsFormGroup: FormGroup = new FormGroup({

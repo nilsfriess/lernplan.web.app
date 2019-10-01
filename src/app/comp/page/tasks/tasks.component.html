@@ -11,11 +11,11 @@
   </div>
   <div *ngIf="showFilter" class="filterWrapper">Funktion wird folgen</div>
   <div class="tasksWrapper">
-    <div *ngIf="tasks === undefined">
-      loading
+    <div class="noTasks" *ngIf="tasks === undefined">
+      Wird geladen...
     </div>
-    <div *ngIf="(tasks && tasks.length == 0) || tasks === null">
-      kein eintrag
+    <div class="noTasks" *ngIf="(tasks && tasks.length == 0) || tasks === null">
+      Kein Eintrag
     </div>
     <div (click)="openTask(task)" class="task" *ngFor="let task of tasks">
       <h2>{{ task.title }}</h2>
