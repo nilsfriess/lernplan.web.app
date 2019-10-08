@@ -1,4 +1,24 @@
 <div *ngIf="authService.afAuth.auth.currentUser" class="bottomNavWrapper">
   <lp-bottom-nav></lp-bottom-nav>
 </div>
-<div class="navWrapper"></div>
+<div *ngIf="authService.afAuth.auth.currentUser" class="navWrapper">
+  <h1>Lp</h1>
+  <div class="links">
+    <button
+      [routerLink]="['/']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i class="material-icons">dashboard</i>
+      Blog
+    </button>
+    <button [routerLink]="['/tasks']" routerLinkActive="active">
+      <i class="material-icons">assignment</i>
+      Aufgaben
+    </button>
+    <button [routerLink]="['/account']" routerLinkActive="active">
+      <i class="material-icons">person</i>
+      Account
+    </button>
+  </div>
+</div>

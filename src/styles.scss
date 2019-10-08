@@ -85,11 +85,38 @@ body.useDarkTheme {
   flex: 1;
 }
 
+button {
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.87);
+  font-family: 'Roboto', sans-serif;
+
+  @include darkTheme {
+    color: white;
+  }
+
+  i {
+    color: rgba(0, 0, 0, 0.87);
+
+    @include darkTheme {
+      color: white;
+    }
+  }
+}
+
 .pageContent {
   position: absolute;
   top: 0;
   padding: 2rem;
   width: calc(100% - 4rem);
+
+  @include desktop {
+    padding: 2rem 3rem;
+    width: calc(100% - 6rem);
+  }
 
   h1 {
     margin: 0 0 2rem;

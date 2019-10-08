@@ -1,15 +1,84 @@
 @import 'vars';
-
-.bottomNavWrapper {
-  @include desktop {
-    display: none;
+:host {
+  .bottomNavWrapper {
+    @include desktop {
+      display: none;
+    }
   }
-}
 
-.navWrapper {
-  display: none;
+  .navWrapper {
+    display: none;
+    width: 240px;
+    height: 100%;
+    padding: 0 2rem 0 0;
+    background: rgba(0, 0, 0, 0.06);
 
-  @include desktop {
-    display: block;
+    @include darkTheme {
+      background: rgba(white, 0.06);
+    }
+
+    @include desktop {
+      display: block;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 2rem 2rem 2rem;
+      font-size: 2.4rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.16);
+
+      @include darkTheme {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.87);
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      margin: 2rem 0 0;
+
+      button {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        font-size: 1rem;
+        padding: 10px 2rem;
+        border-radius: 0 20px 20px 0;
+        transition: background-color 0.2s ease-in-out;
+
+        @include darkTheme {
+          color: rgba(white, 0.7);
+        }
+
+        &.active {
+          background-color: rgba($primary, 0.4);
+
+          @include darkTheme {
+            color: white;
+          }
+
+          i {
+            color: rgba(0, 0, 0, 0.76);
+
+            @include darkTheme {
+              color: white;
+            }
+          }
+        }
+
+        &:hover:not(.active) {
+          background: rgba($primary, 0.12);
+        }
+
+        i {
+          color: rgba(0, 0, 0, 0.66);
+          margin: 0 12px 0 0;
+
+          @include darkTheme {
+            color: rgba(white, 0.7);
+          }
+        }
+      }
+    }
   }
 }

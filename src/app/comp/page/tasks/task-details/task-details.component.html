@@ -12,14 +12,12 @@
       </div>
     </div>
     <div class="taskStatus">
-      {{ task.currentStatus }} von {{ task.pageCount }} Seiten
+      Deadline in {{ remainingDays }}
+      {{ remainingDays > 1 ? 'Tagen' : 'einem Tag' }}
       <div class="taskStatusIndicator">
+        {{ task.currentStatus }} von {{ task.pageCount }} Seiten
         <div class="innerIndicator"></div>
       </div>
     </div>
-    <span class="deadline">
-      Deadline in {{ remainingDays }}
-      {{ remainingDays > 1 ? 'Tagen' : 'einem Tag' }}
-    </span>
   </div>
 </div>

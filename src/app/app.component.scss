@@ -1,7 +1,13 @@
+@import 'vars';
+
 :host {
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  @include desktop {
+    flex-direction: row-reverse;
+  }
 
   .pageWrapper {
     position: relative;
