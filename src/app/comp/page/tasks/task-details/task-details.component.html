@@ -16,8 +16,18 @@
       {{ remainingDays > 1 ? 'Tagen' : 'einem Tag' }}
       <div class="taskStatusIndicator">
         {{ task.currentStatus }} von {{ task.pageCount }} Seiten
-        <div class="innerIndicator"></div>
+        <div class="taskStatusInnerIndicator"></div>
       </div>
     </div>
+    <form class="taskContentWrapper">
+      <div class="statusWrapper">
+        <mat-form-field appearance="outline">
+          <mat-label>Aktueller Status</mat-label>
+          <input #currentStatusInput type="number" [value]="task.currentStatus" matInput>
+          <span class="customSuffix">von {{ task.pageCount }} Seiten</span>
+        </mat-form-field>
+        <button (click)="updateStatus(currentStatusInput.value)" type="button" mat-stroked-button>Aktualisieren</button>
+      </div>
+    </form>
   </div>
 </div>

@@ -56,4 +56,16 @@ export class DatabaseService {
         .catch(e => reject(e));
     });
   }
+
+  updateTask(task) {
+    return new Promise((resolve, reject) => {
+      let userId = this.authService.afAuth.auth.currentUser.uid;
+      if (userId == '') reject(new Error('Unexpected error occured'));
+      this.afFirestore
+        .doc(`users/${userId}/tasks/${task.taskId}`)
+        .set(task, { merge: true })
+        .then(res => resolve(res))
+        .catch(e => reject(e));
+    });
+  }
 }

@@ -58,6 +58,10 @@
       padding: 16px 16px 44px;
       font-size: 1.1rem;
 
+      @include darkTheme {
+        border: 1px solid rgba(white, 0.12);
+      }
+
       .taskStatusIndicator {
         position: absolute;
         bottom: 0;
@@ -68,7 +72,11 @@
         font-size: 14px;
         line-height: 29px;
 
-        .innerIndicator {
+        @include darkTheme {
+          border-top: 1px solid rgba(white, 0.12);
+        }
+
+        .taskStatusInnerIndicator {
           position: absolute;
           top: 0;
           left: 0;
@@ -76,14 +84,50 @@
           background: rgba(0, 0, 0, 0.12);
           height: 28px;
           border-radius: 0 0 8px 8px;
+
+          @include darkTheme {
+            background: rgba(white, 0.12);
+          }
         }
       }
     }
 
-    .deadline {
-      margin: 1rem;
-      font-size: 1.2rem;
-      text-align: center;
+    .taskContentWrapper {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0 0;
+
+      .statusWrapper {
+        display: flex;
+        align-items: flex-start;
+
+        :first-child {
+          flex: 1;
+
+          .customSuffix {
+            opacity: 0;
+            position: absolute;
+            right: 0;
+            color: rgba(0, 0, 0, 0.6);
+            transition: opacity 0.12s ease-in-out;
+
+            @include darkTheme {
+              color: rgba(white, 0.6);
+            }
+          }
+
+          &.mat-focused {
+            .customSuffix {
+              opacity: 1;
+            }
+          }
+        }
+
+        button {
+          height: 60px;
+          margin: 4px 0 0 8px;
+        }
+      }
     }
   }
 }

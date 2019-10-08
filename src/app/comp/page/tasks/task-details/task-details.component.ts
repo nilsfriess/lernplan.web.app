@@ -22,7 +22,6 @@ export class TaskDetailsComponent implements OnInit {
       this.databaseService.getAllTasks().subscribe(data => {
         this.task = data.find(elem => {
           if (elem.taskId == params['id']) {
-            console.log(elem);
             let currentDate = new Date();
             let deadline = new Date(elem.deadline.seconds * 1000);
             this.remainingDays = deadline.getDate() - currentDate.getDate();
@@ -30,7 +29,31 @@ export class TaskDetailsComponent implements OnInit {
           }
           return false;
         });
+        this.updateStatusIndicator();
       });
     });
+  }
+
+  updateStatusIndicator() {
+    let interval = setInterval(() => {
+      if (document.querySelector('.taskStatusInnerIndicator')) {
+        let fullWidth = document.querySelector('.taskStatusIndicator')
+          .clientWidth;
+        let z = fullWidth * (this.task.currentStatus / this.task.pageCount);
+        document
+          .querySelector('.taskStatusInnerIndicator')
+          .setAttribute('style', 'width: ' + z + 'px');
+        clearInterval(interval);
+      }
+    }, 50);
+  }
+
+  updateStatus(val: number) {
+    let newVal = parseInt(val.toString());
+    if (newVal >= 0 && newVal <= this.task.pageCount) {
+      let newTask = JSON.parse(JSON.stringify(this.task));
+      newTask.currentStatus = newVal;
+      this.databaseService.updateTask(newTask).then(d => console.log(d));
+    }
   }
 }
