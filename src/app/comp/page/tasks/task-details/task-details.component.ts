@@ -11,6 +11,8 @@ import { LoadingBarService } from 'src/app/core/services/loading-bar.service';
 export class TaskDetailsComponent implements OnInit {
   task;
   remainingDays: number = 0;
+  pagePerDay: number = 0;
+  taskDeadline;
 
   constructor(
     private databaseService: DatabaseService,
@@ -29,6 +31,10 @@ export class TaskDetailsComponent implements OnInit {
           }
           return false;
         });
+        this.pagePerDay = Math.ceil(
+          (this.task.pageCount - this.task.currentStatus) / this.remainingDays
+        );
+        this.taskDeadline = new Date(this.task.deadline.seconds * 1000);
         this.updateStatusIndicator();
       });
     });
