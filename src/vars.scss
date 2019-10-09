@@ -10,9 +10,9 @@ $darkText: rgba(0, 0, 0, 0.87);
     @content;
   }
 
-  @media (prefers-color-scheme: dark) {
+  /*@media (prefers-color-scheme: dark) {
     @content;
-  }
+  }*/
 }
 
 @mixin desktop {

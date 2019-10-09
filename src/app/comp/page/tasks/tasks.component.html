@@ -9,15 +9,32 @@
       <i class="material-icons">filter_list</i>
     </button>
   </div>
-  <div *ngIf="showFilter" class="filterWrapper">Funktion wird folgen</div>
+  <div *ngIf="showFilter && taskCategorys.length > 0" class="filterWrapper">
+    <mat-form-field>
+      <mat-label>Kategorien</mat-label>
+      <mat-select
+        #select
+        (selectionChange)="onSelectChange(select.value)"
+        multiple
+        [value]="selectedCategories"
+      >
+        <mat-option *ngFor="let category of taskCategorys" [value]="category">
+          {{ category }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div class="tasksWrapper">
-    <div class="noTasks" *ngIf="tasks === undefined">
+    <div class="noTasks" *ngIf="tasksToShow === undefined">
       Wird geladen...
     </div>
-    <div class="noTasks" *ngIf="(tasks && tasks.length == 0) || tasks === null">
+    <div
+      class="noTasks"
+      *ngIf="(tasksToShow && tasksToShow.length == 0) || tasksToShow === null"
+    >
       Kein Eintrag
     </div>
-    <div (click)="openTask(task)" class="task" *ngFor="let task of tasks">
+    <div (click)="openTask(task)" class="task" *ngFor="let task of tasksToShow">
       <h2>{{ task.title }}</h2>
       <span>von {{ task.author }}</span>
     </div>
