@@ -59,7 +59,7 @@
       font-size: 1.1rem;
 
       @include darkTheme {
-        border: 1px solid rgba(white, 0.12);
+        border: 1px solid rgba(white, 0.3);
       }
 
       .taskStatusIndicator {
@@ -73,7 +73,7 @@
         line-height: 29px;
 
         @include darkTheme {
-          border-top: 1px solid rgba(white, 0.12);
+          border-top: 1px solid rgba(white, 0.3);
         }
 
         .taskStatusInnerIndicator {
@@ -126,6 +126,10 @@
         button {
           height: 60px;
           margin: 4px 0 0 8px;
+
+          @include darkTheme {
+            border-color: rgba(white, 0.3);
+          }
         }
       }
     }
