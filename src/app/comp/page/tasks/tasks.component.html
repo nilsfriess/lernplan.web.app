@@ -35,8 +35,29 @@
       Kein Eintrag
     </div>
     <div (click)="openTask(task)" class="task" *ngFor="let task of tasksToShow">
-      <h2>{{ task.title }}</h2>
-      <span>von {{ task.author }}</span>
+      <div class="taskTitle">
+        <h2>{{ task.title }}</h2>
+        <span>von {{ task.author }}</span>
+      </div>
+      <span
+        class="taskWarning sevenDays"
+        *ngIf="
+          task.deadline.seconds * 1000 < currentDate.getTime() + 604800000 &&
+          !(task.deadline.seconds * 1000 < currentDate.getTime() + 259200000)
+        "
+      >
+        <i class="material-icons">
+          error
+        </i>
+      </span>
+      <span
+        class="taskWarning threeDays"
+        *ngIf="task.deadline.seconds * 1000 < currentDate.getTime() + 259200000"
+      >
+        <i class="material-icons">
+          error
+        </i>
+      </span>
     </div>
   </div>
 </div>

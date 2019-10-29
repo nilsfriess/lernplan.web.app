@@ -73,13 +73,14 @@ body.useDarkTheme {
   color: white;
   @include angular-material-theme($lernplan-darkTheme);
 }
-@media (prefers-color-scheme: dark) {
+
+/*@media (prefers-color-scheme: dark) {
   body {
     background: $darkBg;
     color: white;
     @include angular-material-theme($lernplan-darkTheme);
   }
-}
+}*/
 
 .flex-grow {
   flex: 1;
@@ -122,4 +123,9 @@ button {
     margin: 0 0 2rem;
     font-size: 2.4rem;
   }
+}
+
+.mat-progress-spinner.whiteSpinner circle,
+.mat-spinner.whiteSpinner circle {
+  stroke: white !important;
 }

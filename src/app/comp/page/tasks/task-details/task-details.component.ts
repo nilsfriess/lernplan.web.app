@@ -26,7 +26,10 @@ export class TaskDetailsComponent implements OnInit {
           if (elem.taskId == params['id']) {
             let currentDate = new Date();
             let deadline = new Date(elem.deadline.seconds * 1000);
-            this.remainingDays = deadline.getDate() - currentDate.getDate();
+            this.remainingDays = Math.ceil(
+              new Date(deadline.getTime() - currentDate.getTime()).getTime() /
+                86400000
+            );
             return true;
           }
           return false;
@@ -36,6 +39,9 @@ export class TaskDetailsComponent implements OnInit {
         );
         this.taskDeadline = new Date(this.task.deadline.seconds * 1000);
         this.updateStatusIndicator();
+        if (this.task.pageCount == this.task.currentStatus) {
+          this.taskCompleted();
+        }
       });
     });
   }
@@ -61,5 +67,19 @@ export class TaskDetailsComponent implements OnInit {
       newTask.currentStatus = newVal;
       this.databaseService.updateTask(newTask).then(d => console.log(d));
     }
+  }
+
+  taskCompleted() {
+    setTimeout(() => {
+      document
+        .getElementsByClassName('taskFinishedWrapper')[0]
+        .classList.add('show');
+    }, 300);
+  }
+
+  closeTaskCompleted() {
+    document
+      .getElementsByClassName('taskFinishedWrapper')[0]
+      .classList.remove('show');
   }
 }

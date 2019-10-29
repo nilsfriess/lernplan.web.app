@@ -13,6 +13,7 @@ export class TasksComponent implements OnInit {
   taskCategorys: Array<any> = [];
   showFilter: Boolean = false;
   selectedCategories = [];
+  currentDate = new Date();
 
   constructor(
     private databaseService: DatabaseService,

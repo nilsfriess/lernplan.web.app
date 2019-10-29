@@ -1,0 +1,31 @@
+@import 'vars';
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  transform: translateY(-115%);
+  transition: transform 0.5s $cb;
+
+  #errorMsg {
+    display: flex;
+    align-items: center;
+    background: $red;
+    padding: 16px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+    .msg {
+      color: white;
+      flex: 1;
+      font-weight: 600;
+    }
+
+    .whiteSpinner {
+      transform: scaleX(-1);
+      height: 50px;
+      width: 50px;
+    }
+  }
+}

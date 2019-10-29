@@ -1,0 +1,5 @@
+# Interaktives Punktesystem (Vergleich mit Freunden etc)
+
+# Buch Zusammenfassungen (evtl. auch von anderen Leuten einsichtlich)
+
+# authService createUser -> create doc in database

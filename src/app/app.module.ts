@@ -32,6 +32,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoadingBarComponent } from './core/comp/loading-bar/loading-bar.component';
 import { LoadingBarService } from './core/services/loading-bar.service';
 import { TaskDetailsComponent } from './comp/page/tasks/task-details/task-details.component';
+import { FriendsComponent } from './comp/page/friends/friends.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ErrorMsgComponent } from './core/comp/error-msg/error-msg.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import { TaskDetailsComponent } from './comp/page/tasks/task-details/task-detail
     HttpsPipe,
     LoadingBarComponent,
     TaskDetailsComponent,
+    FriendsComponent,
+    ErrorMsgComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,7 @@ import { TaskDetailsComponent } from './comp/page/tasks/task-details/task-detail
     }),
     BrowserAnimationsModule,
     MaterialModule,
+    FontAwesomeModule,
     // AngularFire
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

@@ -13,7 +13,7 @@
     </div>
     <div class="taskStatus">
       Deadline in {{ remainingDays }}
-      {{ remainingDays > 1 ? 'Tagen' : 'einem Tag' }}
+      {{ remainingDays !== 1 ? 'Tagen' : 'einem Tag' }}
       <div class="taskStatusIndicator">
         {{ task.currentStatus }} von {{ task.pageCount }} Seiten
         <div class="taskStatusInnerIndicator"></div>
@@ -44,11 +44,32 @@
           <b>{{ pagePerDay }} Seiten</b> / pro Tag
         </span>
         <span class="subtitle">
-          bis zum {{ taskDeadline.getDate() }} .{{
+          bis zum {{ taskDeadline.getDate() }}.{{
             taskDeadline.getMonth() + 1
           }}.{{ taskDeadline.getFullYear() }}
         </span>
       </div>
     </div>
+  </div>
+</div>
+<div class="taskFinishedWrapper">
+  <div class="iconWrapper">
+    <svg height="200" width="200">
+      <circle
+        class="circle"
+        cx="100"
+        cy="100"
+        r="95"
+        stroke="#231f20"
+        stroke-width="8"
+        fill-opacity="0"
+      />
+    </svg>
+    <i class="material-icons">check</i>
+  </div>
+  <div class="content">
+    <span>Aufgabe erflogreich abgeschlossen!</span>
+    <button mat-stroked-button>Zusammenfassung erstellen</button>
+    <button (click)="closeTaskCompleted()" mat-stroked-button>Schließen</button>
   </div>
 </div>
